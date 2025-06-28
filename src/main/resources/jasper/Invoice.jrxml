@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="cd759d20-cfa9-48d7-9532-01dc8f55f04e">
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="productName" class="java.lang.String"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="totalPrice" class="java.math.BigDecimal"/>
+	<field name="orderDate" class="java.time.LocalDateTime"/>
+	<title>
+		<band height="60">
+			<image>
+				<reportElement x="0" y="0" width="100" height="50" uuid="b7ed6d1c-a237-43d3-9de5-33a957ae7a17"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="120" y="10" width="400" height="30" uuid="8244f4c3-ae7f-4156-b619-18898fee7c22"/>
+				<textFieldExpression><![CDATA["Invoice for " + $P{customerName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="120">
+			<textField>
+				<reportElement x="0" y="0" width="150" height="20" uuid="8654131c-d7db-44a9-8d5e-11905b095325"/>
+				<textFieldExpression><![CDATA["Order ID: " + $F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="200" height="20" uuid="77bd8a9b-9bcc-4453-b80f-0efadeddb871"/>
+				<textFieldExpression><![CDATA["Product: " + $F{productName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="200" height="20" uuid="09f5c74e-2555-43fc-b497-5df009d4b16a"/>
+				<textFieldExpression><![CDATA["Price: ₹" + $F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="200" height="20" uuid="e1b54ea9-f3a3-496e-b103-d59223fcf1dd"/>
+				<textFieldExpression><![CDATA["Quantity: " + $F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="80" width="200" height="20" uuid="a24355c1-2def-4053-a2bc-4d9c2edd77a0"/>
+				<textFieldExpression><![CDATA["Total: ₹" + $F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="100" width="250" height="20" uuid="aeab884c-a47f-4101-a2fd-471f979b292d"/>
+				<textFieldExpression><![CDATA["Order Date: " + $F{orderDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
