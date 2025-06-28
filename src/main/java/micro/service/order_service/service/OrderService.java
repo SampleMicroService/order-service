@@ -6,18 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import micro.service.order_service.dto.EmailRequestDto;
 import micro.service.order_service.entity.Order;
+import micro.service.order_service.feignclient.MailServiceClient;
 import micro.service.order_service.repository.OrderRepository;
 
 @Service
@@ -32,8 +29,11 @@ public class OrderService {
 	@Autowired
 	private OrderRepository repo;
 	
+//	@Autowired
+//    private  WebClient.Builder webClientBuilder;
+	
 	@Autowired
-    private  WebClient.Builder webClientBuilder;
+	private MailServiceClient mailClient;
 
 
 	public void sendOrderConfirmationEmail(Order order,String name,String mail) throws Exception {
@@ -63,13 +63,14 @@ public class OrderService {
 	    request.setPlaceHolder(placeholders);
 	    
 	    try {
-			String message = webClientBuilder.build()
-					.post()
-					.uri("http://localhost:8083/mail/send")
-					.bodyValue(request)
-					.retrieve()
-					.bodyToMono(String.class)
-					.block();
+			String message = mailClient.sendMail(request);
+//					webClientBuilder.build()
+//					.post()
+//					.uri("http://localhost:8083/mail/send")
+//					.bodyValue(request)
+//					.retrieve()
+//					.bodyToMono(String.class)
+//					.block();
 			
 			System.out.println(message);
 		} catch (Exception e) {
