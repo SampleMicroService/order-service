@@ -9,6 +9,6 @@ import micro.service.order_service.dto.ProductDTO;
 @FeignClient(name = "product-service",url = "${product.service.url}")
 public interface ProductServiceClient {
 	
-	@GetMapping
+	@GetMapping("/{id}")
 	ProductDTO getProductById(@PathVariable("id") Long id);
 }
